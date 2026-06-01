@@ -1,6 +1,354 @@
 import { useState, useEffect, useRef } from "react";
 
 /* ═══════════════════════════════════════════════
+   TRANSLATIONS  ES · EN · FR · PT
+═══════════════════════════════════════════════ */
+const T = {
+  es: {
+    // NAV
+    nav_home:"Inicio", nav_projects:"Proyectos", nav_simulator:"Simulador",
+    nav_education:"Educación", nav_institutional:"Institucional",
+    nav_login:"Iniciar sesión", nav_register:"Crear cuenta",
+    nav_myaccount:"Mi cuenta", nav_logout:"Salir",
+    // HERO
+    hero_badge:"Plataforma de activos tokenizados · Est. 2024",
+    hero_h1a:"Invierte en activos", hero_h1b:"reales", hero_h1c:"desde cualquier parte del mundo.",
+    hero_p:"Transformamos propiedades, flotas vehiculares y parques solares en tokens accesibles. Rendimientos reales, respaldo legal, trazabilidad blockchain.",
+    hero_cta1:"Ver Oportunidades →", hero_cta2:"Simular mi inversión",
+    hero_s1:"Capital gestionado", hero_s2:"Inversores activos", hero_s3:"TIR promedio anual",
+    hero_fc1:"Portafolio activo", hero_fc2:"Rendimiento acum.", hero_fc3:"Este mes",
+    hero_fc4:"Próx. pago: 05 Jun", hero_fc5:"Tokens activos",
+    // TRUST
+    trust_label:"Respaldo institucional",
+    // METRICS
+    m1:"Capital tokenizado", m2:"Inversores · 18 países", m3:"Tipos de activos", m4:"Trazabilidad blockchain", m5:"TIR promedio histórica",
+    // HOW
+    how_tag:"Proceso simple", how_title:"Tu camino en 3 pasos",
+    how_sub:"Sin burocracia ni fronteras. Elegí, invertí, cobrá.",
+    how_s1t:"Creá tu cuenta", how_s1d:"Proceso KYC 100% digital en minutos. Identidad verificada, acceso inmediato al catálogo.",
+    how_s2t:"Elegí y tokenizá", how_s2d:"Seleccioná el fideicomiso. Invertí via transferencia bancaria, SWIFT o stablecoins USDT/USDC.",
+    how_s3t:"Recibí ganancias", how_s3d:"Monitoreá rendimientos en tiempo real desde tu dashboard. Retirá según las condiciones del fideicomiso.",
+    how_cta:"Comenzar ahora →",
+    // SHOWCASE
+    showcase_tag:"Activos disponibles", showcase_title:"Invertí en lo que podés ver y tocar",
+    showcase_sub:"Cada fideicomiso está respaldado por activos tangibles, auditados y tokenizados en blockchain.",
+    // PROJECTS
+    proj_tag:"Portafolio", proj_title:"Diversificá tu capital en activos reales",
+    proj_sub:"Activos tangibles, rendimientos verificables, contratos en blockchain.",
+    proj_seeall:"Ver todos →", proj_viewdetail:"Ver detalle",
+    proj_tir:"TIR Est.", proj_plazo:"Plazo", proj_captacion:"Captación", proj_riesgo:"Riesgo",
+    proj_invest:"Invertir",
+    // TESTIMONIALS
+    test_tag:"Comunidad", test_title:"Lo que dicen nuestros inversores",
+    // FAQ
+    faq_tag:"FAQ", faq_title:"Todo lo que necesitás saber",
+    // CTA BAND
+    cta_title:"¿Listo para hacer trabajar tu capital en activos reales?",
+    cta_sub:"Creá tu cuenta gratis. Sin mínimos elevados, sin burocracia, con total trazabilidad.",
+    cta_btn1:"Crear Cuenta Gratis →", cta_btn2:"Hablar con un asesor",
+    // FOOTER
+    footer_desc:"Plataforma de tokenización de activos reales. Conectamos la economía real con blockchain para inversores de todo el mundo.",
+    footer_legal:"Nexxum S.A. opera bajo las estructuras legales de fideicomisos ordinarios. Los activos digitales están respaldados por contratos inteligentes en la red Polygon. Los valores mostrados son estimaciones y no constituyen garantía de retorno futuro.",
+    // SIMULATOR
+    sim_tag:"Herramienta interactiva", sim_title:"Simulador de inversión",
+    sim_sub:"Calculá el retorno estimado de tu inversión según el fideicomiso y el monto que elijas.",
+    sim_howmuch:"¿Cuánto deseás invertir?", sim_select:"Seleccioná el fideicomiso",
+    sim_annual:"Retorno proyectado anual", sim_permonth:"por mes",
+    sim_capital:"Capital inicial", sim_tir:"TIR estimada", sim_risk:"Nivel de riesgo",
+    sim_term:"Plazo sugerido", sim_total:"Total proyectado (1 año)",
+    sim_invest:"Invertir en", sim_compare:"Comparativa de fideicomisos",
+    sim_disclaimer:"Los valores son simulaciones basadas en rendimientos históricos estimados. No constituyen garantía de retorno futuro.",
+    sim_annual_ret:"Retorno anual",
+    // AUTH
+    reg_title:"Crear cuenta", reg_step1:"Paso 1 de 3 · Tus datos personales",
+    reg_name:"Nombre", reg_lastname:"Apellido", reg_email:"Email",
+    reg_country:"País de residencia", reg_next:"Continuar →", reg_back:"← Atrás",
+    reg_already:"¿Ya tenés cuenta?", reg_signin:"Iniciá sesión",
+    reg_photo:"Subí tu foto de perfil (opcional)",
+    log_title:"Iniciá sesión", log_sub:"Accedé a tu panel de inversiones",
+    log_pass:"Contraseña", log_forgot:"¿Olvidaste tu contraseña?",
+    log_enter:"Ingresar →", log_no_account:"¿No tenés cuenta?", log_signup:"Registrate gratis",
+    // EDUCATION
+    edu_tag:"Centro de aprendizaje", edu_title:"Entendé el modelo antes de invertir",
+    edu_sub:"La transparencia empieza por la educación.",
+    edu_readmore:"Leer más →", edu_close:"Cerrar ↑",
+    // INSTITUTIONAL
+    inst_tag:"Quiénes somos",
+    // DASHBOARD
+    dash_hello:"Buenos días",
+    dash_nextpay:"Próximo pago de rendimientos",
+    // RISK LABELS
+    risk_bajo:"Bajo", risk_mod:"Moderado", risk_com:"Comercial",
+  },
+  en: {
+    nav_home:"Home", nav_projects:"Projects", nav_simulator:"Simulator",
+    nav_education:"Education", nav_institutional:"About Us",
+    nav_login:"Sign in", nav_register:"Create account",
+    nav_myaccount:"My account", nav_logout:"Sign out",
+    hero_badge:"Real asset tokenization platform · Est. 2024",
+    hero_h1a:"Invest in", hero_h1b:"real", hero_h1c:"assets from anywhere in the world.",
+    hero_p:"We transform properties, vehicle fleets and solar parks into accessible tokens. Real returns, legal backing, blockchain traceability.",
+    hero_cta1:"View Opportunities →", hero_cta2:"Simulate my investment",
+    hero_s1:"Assets under management", hero_s2:"Active investors", hero_s3:"Average annual IRR",
+    hero_fc1:"Active portfolio", hero_fc2:"Cumulative return", hero_fc3:"This month",
+    hero_fc4:"Next payment: Jun 05", hero_fc5:"Active tokens",
+    trust_label:"Institutional backing",
+    m1:"Tokenized capital", m2:"Investors · 18 countries", m3:"Asset types", m4:"Blockchain traceability", m5:"Historical avg. IRR",
+    how_tag:"Simple process", how_title:"Your journey in 3 steps",
+    how_sub:"No bureaucracy, no borders. Choose, invest, earn.",
+    how_s1t:"Create your account", how_s1d:"100% digital KYC process in minutes. Verified identity, immediate access to the catalog.",
+    how_s2t:"Choose and tokenize", how_s2d:"Select your preferred trust fund. Invest via bank transfer, SWIFT or stablecoins USDT/USDC.",
+    how_s3t:"Receive your returns", how_s3d:"Monitor your returns in real time from your dashboard. Withdraw according to the trust fund conditions.",
+    how_cta:"Get started →",
+    showcase_tag:"Available assets", showcase_title:"Invest in what you can see and touch",
+    showcase_sub:"Each trust fund is backed by tangible, audited assets tokenized on blockchain.",
+    proj_tag:"Portfolio", proj_title:"Diversify your capital in real assets",
+    proj_sub:"Tangible assets, verifiable returns, blockchain contracts.",
+    proj_seeall:"See all →", proj_viewdetail:"View detail",
+    proj_tir:"Est. IRR", proj_plazo:"Term", proj_captacion:"Fundraising", proj_riesgo:"Risk",
+    proj_invest:"Invest",
+    test_tag:"Community", test_title:"What our investors say",
+    faq_tag:"FAQ", faq_title:"Everything you need to know",
+    cta_title:"Ready to put your capital to work in real assets?",
+    cta_sub:"Create your free account. No high minimums, no bureaucracy, full traceability.",
+    cta_btn1:"Create Free Account →", cta_btn2:"Talk to an advisor",
+    footer_desc:"Real asset tokenization platform. We connect the real economy with blockchain for investors worldwide.",
+    footer_legal:"Nexxum S.A. operates under ordinary trust fund legal structures. Digital assets are backed by smart contracts on the Polygon network. Values shown are estimates and do not guarantee future returns.",
+    sim_tag:"Interactive tool", sim_title:"Investment simulator",
+    sim_sub:"Calculate your estimated return based on the trust fund and amount you choose.",
+    sim_howmuch:"How much do you want to invest?", sim_select:"Select trust fund",
+    sim_annual:"Projected annual return", sim_permonth:"per month",
+    sim_capital:"Initial capital", sim_tir:"Estimated IRR", sim_risk:"Risk level",
+    sim_term:"Suggested term", sim_total:"Projected total (1 year)",
+    sim_invest:"Invest in", sim_compare:"Trust fund comparison",
+    sim_disclaimer:"Values are simulations based on estimated historical returns. They do not constitute a guarantee of future return.",
+    sim_annual_ret:"Annual return",
+    reg_title:"Create account", reg_step1:"Step 1 of 3 · Your personal details",
+    reg_name:"First name", reg_lastname:"Last name", reg_email:"Email",
+    reg_country:"Country of residence", reg_next:"Continue →", reg_back:"← Back",
+    reg_already:"Already have an account?", reg_signin:"Sign in",
+    reg_photo:"Upload your profile photo (optional)",
+    log_title:"Sign in", log_sub:"Access your investment dashboard",
+    log_pass:"Password", log_forgot:"Forgot your password?",
+    log_enter:"Sign in →", log_no_account:"Don't have an account?", log_signup:"Sign up free",
+    edu_tag:"Learning center", edu_title:"Understand the model before investing",
+    edu_sub:"Transparency starts with education.",
+    edu_readmore:"Read more →", edu_close:"Close ↑",
+    inst_tag:"About us",
+    dash_hello:"Good morning",
+    dash_nextpay:"Next return payment",
+    risk_bajo:"Low", risk_mod:"Moderate", risk_com:"Commercial",
+  },
+  fr: {
+    nav_home:"Accueil", nav_projects:"Projets", nav_simulator:"Simulateur",
+    nav_education:"Éducation", nav_institutional:"À propos",
+    nav_login:"Se connecter", nav_register:"Créer un compte",
+    nav_myaccount:"Mon compte", nav_logout:"Se déconnecter",
+    hero_badge:"Plateforme de tokenisation d'actifs réels · Est. 2024",
+    hero_h1a:"Investissez dans des actifs", hero_h1b:"réels", hero_h1c:"depuis n'importe où dans le monde.",
+    hero_p:"Nous transformons des propriétés, des flottes de véhicules et des parcs solaires en tokens accessibles. Rendements réels, cadre juridique solide, traçabilité blockchain.",
+    hero_cta1:"Voir les opportunités →", hero_cta2:"Simuler mon investissement",
+    hero_s1:"Actifs sous gestion", hero_s2:"Investisseurs actifs", hero_s3:"TRI moyen annuel",
+    hero_fc1:"Portefeuille actif", hero_fc2:"Rendement cumulé", hero_fc3:"Ce mois",
+    hero_fc4:"Prochain paiement: 05 Jun", hero_fc5:"Tokens actifs",
+    trust_label:"Soutien institutionnel",
+    m1:"Capital tokenisé", m2:"Investisseurs · 18 pays", m3:"Types d'actifs", m4:"Traçabilité blockchain", m5:"TRI historique moyen",
+    how_tag:"Processus simple", how_title:"Votre parcours en 3 étapes",
+    how_sub:"Sans bureaucratie ni frontières. Choisissez, investissez, encaissez.",
+    how_s1t:"Créez votre compte", how_s1d:"Processus KYC 100% numérique en quelques minutes. Identité vérifiée, accès immédiat au catalogue.",
+    how_s2t:"Choisissez et tokenisez", how_s2d:"Sélectionnez le fonds fiduciaire de votre choix. Investissez par virement bancaire, SWIFT ou stablecoins USDT/USDC.",
+    how_s3t:"Recevez vos rendements", how_s3d:"Suivez vos rendements en temps réel depuis votre tableau de bord. Retirez selon les conditions du fonds.",
+    how_cta:"Commencer maintenant →",
+    showcase_tag:"Actifs disponibles", showcase_title:"Investissez dans ce que vous pouvez voir et toucher",
+    showcase_sub:"Chaque fonds fiduciaire est adossé à des actifs tangibles, audités et tokenisés sur blockchain.",
+    proj_tag:"Portefeuille", proj_title:"Diversifiez votre capital dans des actifs réels",
+    proj_sub:"Actifs tangibles, rendements vérifiables, contrats sur blockchain.",
+    proj_seeall:"Voir tout →", proj_viewdetail:"Voir le détail",
+    proj_tir:"TRI Est.", proj_plazo:"Durée", proj_captacion:"Collecte", proj_riesgo:"Risque",
+    proj_invest:"Investir",
+    test_tag:"Communauté", test_title:"Ce que disent nos investisseurs",
+    faq_tag:"FAQ", faq_title:"Tout ce que vous devez savoir",
+    cta_title:"Prêt à faire travailler votre capital dans des actifs réels?",
+    cta_sub:"Créez votre compte gratuit. Sans minimums élevés, sans bureaucratie, avec une traçabilité totale.",
+    cta_btn1:"Créer un compte gratuit →", cta_btn2:"Parler à un conseiller",
+    footer_desc:"Plateforme de tokenisation d'actifs réels. Nous connectons l'économie réelle avec la blockchain pour les investisseurs du monde entier.",
+    footer_legal:"Nexxum S.A. opère sous des structures juridiques de fiducies ordinaires. Les actifs numériques sont adossés à des contrats intelligents sur le réseau Polygon. Les valeurs affichées sont des estimations et ne constituent pas une garantie de rendement futur.",
+    sim_tag:"Outil interactif", sim_title:"Simulateur d'investissement",
+    sim_sub:"Calculez le rendement estimé de votre investissement selon le fonds et le montant choisis.",
+    sim_howmuch:"Combien souhaitez-vous investir?", sim_select:"Sélectionnez le fonds fiduciaire",
+    sim_annual:"Rendement annuel projeté", sim_permonth:"par mois",
+    sim_capital:"Capital initial", sim_tir:"TRI estimé", sim_risk:"Niveau de risque",
+    sim_term:"Durée suggérée", sim_total:"Total projeté (1 an)",
+    sim_invest:"Investir dans", sim_compare:"Comparaison des fonds",
+    sim_disclaimer:"Les valeurs sont des simulations basées sur des rendements historiques estimés. Elles ne constituent pas une garantie de rendement futur.",
+    sim_annual_ret:"Rendement annuel",
+    reg_title:"Créer un compte", reg_step1:"Étape 1 sur 3 · Vos données personnelles",
+    reg_name:"Prénom", reg_lastname:"Nom", reg_email:"Email",
+    reg_country:"Pays de résidence", reg_next:"Continuer →", reg_back:"← Retour",
+    reg_already:"Vous avez déjà un compte?", reg_signin:"Se connecter",
+    reg_photo:"Téléchargez votre photo de profil (optionnel)",
+    log_title:"Se connecter", log_sub:"Accédez à votre tableau de bord",
+    log_pass:"Mot de passe", log_forgot:"Mot de passe oublié?",
+    log_enter:"Se connecter →", log_no_account:"Pas encore de compte?", log_signup:"S'inscrire gratuitement",
+    edu_tag:"Centre d'apprentissage", edu_title:"Comprenez le modèle avant d'investir",
+    edu_sub:"La transparence commence par l'éducation.",
+    edu_readmore:"Lire la suite →", edu_close:"Fermer ↑",
+    inst_tag:"À propos de nous",
+    dash_hello:"Bonjour",
+    dash_nextpay:"Prochain paiement de rendement",
+    risk_bajo:"Faible", risk_mod:"Modéré", risk_com:"Commercial",
+  },
+  pt: {
+    nav_home:"Início", nav_projects:"Projetos", nav_simulator:"Simulador",
+    nav_education:"Educação", nav_institutional:"Sobre nós",
+    nav_login:"Entrar", nav_register:"Criar conta",
+    nav_myaccount:"Minha conta", nav_logout:"Sair",
+    hero_badge:"Plataforma de tokenização de ativos reais · Est. 2024",
+    hero_h1a:"Invista em ativos", hero_h1b:"reais", hero_h1c:"de qualquer lugar do mundo.",
+    hero_p:"Transformamos propriedades, frotas de veículos e parques solares em tokens acessíveis. Rendimentos reais, respaldo jurídico, rastreabilidade blockchain.",
+    hero_cta1:"Ver Oportunidades →", hero_cta2:"Simular meu investimento",
+    hero_s1:"Capital gerenciado", hero_s2:"Investidores ativos", hero_s3:"TIR médio anual",
+    hero_fc1:"Portfólio ativo", hero_fc2:"Rendimento acum.", hero_fc3:"Este mês",
+    hero_fc4:"Próx. pagamento: 05 Jun", hero_fc5:"Tokens ativos",
+    trust_label:"Respaldo institucional",
+    m1:"Capital tokenizado", m2:"Investidores · 18 países", m3:"Tipos de ativos", m4:"Rastreabilidade blockchain", m5:"TIR histórico médio",
+    how_tag:"Processo simples", how_title:"Sua jornada em 3 passos",
+    how_sub:"Sem burocracia nem fronteiras. Escolha, invista, receba.",
+    how_s1t:"Crie sua conta", how_s1d:"Processo KYC 100% digital em minutos. Identidade verificada, acesso imediato ao catálogo.",
+    how_s2t:"Escolha e tokenize", how_s2d:"Selecione o fundo fiduciário de sua preferência. Invista via transferência bancária, SWIFT ou stablecoins USDT/USDC.",
+    how_s3t:"Receba seus rendimentos", how_s3d:"Monitore seus rendimentos em tempo real pelo seu dashboard. Retire conforme as condições do fundo.",
+    how_cta:"Começar agora →",
+    showcase_tag:"Ativos disponíveis", showcase_title:"Invista no que você pode ver e tocar",
+    showcase_sub:"Cada fundo fiduciário é respaldado por ativos tangíveis, auditados e tokenizados em blockchain.",
+    proj_tag:"Portfólio", proj_title:"Diversifique seu capital em ativos reais",
+    proj_sub:"Ativos tangíveis, rendimentos verificáveis, contratos em blockchain.",
+    proj_seeall:"Ver todos →", proj_viewdetail:"Ver detalhe",
+    proj_tir:"TIR Est.", proj_plazo:"Prazo", proj_captacion:"Captação", proj_riesgo:"Risco",
+    proj_invest:"Investir",
+    test_tag:"Comunidade", test_title:"O que dizem nossos investidores",
+    faq_tag:"FAQ", faq_title:"Tudo que você precisa saber",
+    cta_title:"Pronto para fazer seu capital trabalhar em ativos reais?",
+    cta_sub:"Crie sua conta grátis. Sem mínimos elevados, sem burocracia, com total rastreabilidade.",
+    cta_btn1:"Criar Conta Grátis →", cta_btn2:"Falar com um consultor",
+    footer_desc:"Plataforma de tokenização de ativos reais. Conectamos a economia real com blockchain para investidores de todo o mundo.",
+    footer_legal:"Nexxum S.A. opera sob estruturas jurídicas de fundos fiduciários ordinários. Os ativos digitais são respaldados por contratos inteligentes na rede Polygon. Os valores mostrados são estimativas e não constituem garantia de retorno futuro.",
+    sim_tag:"Ferramenta interativa", sim_title:"Simulador de investimento",
+    sim_sub:"Calcule o retorno estimado do seu investimento conforme o fundo e o valor escolhidos.",
+    sim_howmuch:"Quanto você deseja investir?", sim_select:"Selecione o fundo fiduciário",
+    sim_annual:"Retorno anual projetado", sim_permonth:"por mês",
+    sim_capital:"Capital inicial", sim_tir:"TIR estimado", sim_risk:"Nível de risco",
+    sim_term:"Prazo sugerido", sim_total:"Total projetado (1 ano)",
+    sim_invest:"Investir em", sim_compare:"Comparativo de fundos",
+    sim_disclaimer:"Os valores são simulações baseadas em rendimentos históricos estimados. Não constituem garantia de retorno futuro.",
+    sim_annual_ret:"Retorno anual",
+    reg_title:"Criar conta", reg_step1:"Passo 1 de 3 · Seus dados pessoais",
+    reg_name:"Nome", reg_lastname:"Sobrenome", reg_email:"Email",
+    reg_country:"País de residência", reg_next:"Continuar →", reg_back:"← Voltar",
+    reg_already:"Já tem uma conta?", reg_signin:"Entrar",
+    reg_photo:"Envie sua foto de perfil (opcional)",
+    log_title:"Entrar", log_sub:"Acesse seu painel de investimentos",
+    log_pass:"Senha", log_forgot:"Esqueceu sua senha?",
+    log_enter:"Entrar →", log_no_account:"Não tem uma conta?", log_signup:"Cadastre-se grátis",
+    edu_tag:"Centro de aprendizado", edu_title:"Entenda o modelo antes de investir",
+    edu_sub:"A transparência começa pela educação.",
+    edu_readmore:"Ler mais →", edu_close:"Fechar ↑",
+    inst_tag:"Sobre nós",
+    dash_hello:"Bom dia",
+    dash_nextpay:"Próximo pagamento de rendimentos",
+    risk_bajo:"Baixo", risk_mod:"Moderado", risk_com:"Comercial",
+  },
+};
+
+/* ── EXTENDED TESTIMONIALS ── */
+const TESTIMONIALS = [
+  {
+    stars:"★★★★★",
+    name:"Martín Rodríguez",
+    role:"Empresario PyME",
+    location:"Buenos Aires, Argentina",
+    avatar:"MR",
+    flag:"🇦🇷",
+    amount:"USD 15.000 invertidos",
+    fund:"Flota de Autos",
+    text_es:"Llevo 8 meses en el fideicomiso de autos y los pagos mensuales son exactamente lo que estimó el simulador. Lo que más valoro es la transparencia total: cada centavo que entra a mi cuenta está respaldado por un hash en la blockchain que yo mismo puedo verificar. No tengo que creerle a nadie, los números están ahí.",
+    text_en:"I've been in the vehicle fleet trust fund for 8 months and the monthly payments are exactly what the simulator estimated. What I value most is total transparency: every cent that enters my account is backed by a blockchain hash I can verify myself. I don't have to trust anyone — the numbers are right there.",
+    text_fr:"Je suis dans le fonds fiduciaire de flotte de véhicules depuis 8 mois et les paiements mensuels sont exactement ce que le simulateur a estimé. Ce que j'apprécie le plus, c'est la transparence totale : chaque centime qui entre dans mon compte est soutenu par un hash blockchain que je peux vérifier moi-même.",
+    text_pt:"Estou no fundo fiduciário de frota de veículos há 8 meses e os pagamentos mensais são exatamente o que o simulador estimou. O que mais valorizo é a transparência total: cada centavo que entra na minha conta é respaldado por um hash na blockchain que eu mesmo posso verificar.",
+  },
+  {
+    stars:"★★★★★",
+    name:"Klaus Bauer",
+    role:"Gestor de patrimônio privado",
+    location:"Múnich, Alemania",
+    avatar:"KB",
+    flag:"🇩🇪",
+    amount:"USD 40.000 invertidos",
+    fund:"Real Estate + Energía Solar",
+    text_es:"Como inversor europeo acostumbrado a plataformas de alta regulación, lo que me convenció de Nexxum fue poder auditar el contrato inteligente directamente en Polygon. El modelo de fideicomiso es sólido jurídicamente y la diversificación entre real estate y energía solar me da una estabilidad que pocas plataformas en Europa ofrecen.",
+    text_en:"As a European investor used to highly regulated platforms, what convinced me about Nexxum was being able to audit the smart contract directly on Polygon. The trust fund model is legally solid and the diversification between real estate and solar energy gives me stability that few European platforms offer.",
+    text_fr:"En tant qu'investisseur européen habitué aux plateformes très réglementées, ce qui m'a convaincu chez Nexxum, c'est de pouvoir auditer le contrat intelligent directement sur Polygon. Le modèle fiduciaire est juridiquement solide et la diversification entre immobilier et énergie solaire m'offre une stabilité rare.",
+    text_pt:"Como investidor europeu acostumado a plataformas altamente reguladas, o que me convenceu na Nexxum foi poder auditar o contrato inteligente diretamente no Polygon. O modelo fiduciário é juridicamente sólido e a diversificação entre imóveis e energia solar me dá uma estabilidade que poucas plataformas europeias oferecem.",
+  },
+  {
+    stars:"★★★★★",
+    name:"Valentina Cruz",
+    role:"Consultora financiera independiente",
+    location:"Miami, EE.UU.",
+    avatar:"VC",
+    flag:"🇺🇸",
+    amount:"USD 22.000 invertidos",
+    fund:"Energía Solar",
+    text_es:"El KYC fue ágil y el proceso de inversión con USDC desde Miami fue impecable. Pero lo que realmente me convenció fue el análisis previo: el simulador no promete retornos mágicos, muestra TIR reales históricas con auditoría. Eso habla de una plataforma que respeta la inteligencia del inversor.",
+    text_en:"The KYC was quick and the investment process with USDC from Miami was flawless. But what really convinced me was the prior analysis: the simulator doesn't promise magic returns — it shows real historical IRRs with auditing. That speaks to a platform that respects investor intelligence.",
+    text_fr:"Le KYC a été rapide et le processus d'investissement avec USDC depuis Miami était impeccable. Mais ce qui m'a vraiment convaincue, c'est l'analyse préalable : le simulateur ne promet pas des rendements magiques, il montre des TRI historiques réels avec audit. Cela montre une plateforme qui respecte l'intelligence des investisseurs.",
+    text_pt:"O KYC foi ágil e o processo de investimento com USDC de Miami foi impecável. Mas o que realmente me convenceu foi a análise prévia: o simulador não promete retornos mágicos — mostra TIRs históricas reais com auditoria. Isso fala de uma plataforma que respeita a inteligência do investidor.",
+  },
+  {
+    stars:"★★★★★",
+    name:"Ricardo Oliveira",
+    role:"Ejecutivo corporativo",
+    location:"São Paulo, Brasil",
+    avatar:"RO",
+    flag:"🇧🇷",
+    amount:"USD 30.000 invertidos",
+    fund:"Flota de Autos + Real Estate",
+    text_es:"Analicé muchas plataformas de inversión alternativa antes de elegir Nexxum. La diferencia clave es la claridad del modelo: en 20 minutos entendí exactamente cómo funciona el fideicomiso, qué pasa si la empresa quiebra (los activos están separados), y cómo verificar mi participación en blockchain. Esa claridad no la encontré en ningún otro lado.",
+    text_en:"I analyzed many alternative investment platforms before choosing Nexxum. The key difference is the model's clarity: in 20 minutes I understood exactly how the trust fund works, what happens if the company fails (assets are ring-fenced), and how to verify my participation on blockchain. I didn't find that clarity anywhere else.",
+    text_fr:"J'ai analysé de nombreuses plateformes d'investissement alternatif avant de choisir Nexxum. La différence clé est la clarté du modèle : en 20 minutes, j'ai compris exactement comment fonctionne le fonds fiduciaire, ce qui se passe si la société fait faillite et comment vérifier ma participation sur blockchain.",
+    text_pt:"Analisei muitas plataformas de investimento alternativo antes de escolher a Nexxum. A diferença-chave é a clareza do modelo: em 20 minutos entendi exatamente como funciona o fundo fiduciário, o que acontece se a empresa falir (ativos são separados) e como verificar minha participação no blockchain.",
+  },
+  {
+    stars:"★★★★★",
+    name:"Sophie Lefebvre",
+    role:"Inversora privada",
+    location:"Lyon, Francia",
+    avatar:"SL",
+    flag:"🇫🇷",
+    amount:"USD 18.000 invertidos",
+    fund:"Energía Solar",
+    text_es:"Me especializo en inversiones de impacto y el fideicomiso solar de Nexxum combina lo mejor de ambos mundos: retorno financiero real (12% TIR) con impacto ambiental certificado. El dashboard me permite ver en tiempo real la generación del parque y los flujos de caja. Es exactamente el nivel de transparencia que exijo.",
+    text_en:"I specialize in impact investing and Nexxum's solar trust fund combines the best of both worlds: real financial return (12% IRR) with certified environmental impact. The dashboard lets me see the park's generation and cash flows in real time. That's exactly the level of transparency I demand.",
+    text_fr:"Je suis spécialisée dans l'investissement à impact et le fonds solaire de Nexxum combine le meilleur des deux mondes : rendement financier réel (12% TRI) avec impact environnemental certifié. Le tableau de bord me permet de voir en temps réel la production du parc et les flux de trésorerie.",
+    text_pt:"Sou especializada em investimentos de impacto e o fundo solar da Nexxum combina o melhor dos dois mundos: retorno financeiro real (12% TIR) com impacto ambiental certificado. O dashboard me permite ver em tempo real a geração do parque e os fluxos de caixa.",
+  },
+  {
+    stars:"★★★★★",
+    name:"Sebastián Morales",
+    role:"Ingeniero / Inversor tech",
+    location:"Ciudad de México, México",
+    avatar:"SM",
+    flag:"🇲🇽",
+    amount:"USD 12.000 invertidos",
+    fund:"Infraestructura Energética",
+    text_es:"Lo primero que hice fue leer el contrato de fideicomiso completo y verificar el smart contract en Polygon. Todo coincidía al 100%. Para alguien con perfil técnico, eso es lo máximo. Además el equipo de soporte respondió mis dudas técnicas sobre los contratos inteligentes en menos de 2 horas. Profesionalismo total.",
+    text_en:"The first thing I did was read the complete trust fund contract and verify the smart contract on Polygon. Everything matched 100%. For someone with a technical profile, that's the best you can ask for. The support team also answered my technical questions about smart contracts in under 2 hours. Total professionalism.",
+    text_fr:"La première chose que j'ai faite a été de lire le contrat fiduciaire complet et de vérifier le contrat intelligent sur Polygon. Tout correspondait à 100%. Pour quelqu'un avec un profil technique, c'est le maximum. L'équipe de support a également répondu à mes questions techniques en moins de 2 heures.",
+    text_pt:"A primeira coisa que fiz foi ler o contrato fiduciário completo e verificar o contrato inteligente no Polygon. Tudo coincidiu 100%. Para alguém com perfil técnico, isso é o máximo. A equipe de suporte também respondeu minhas dúvidas técnicas sobre contratos inteligentes em menos de 2 horas.",
+  },
+];
+
+
+/* ═══════════════════════════════════════════════
    NEXXUM S.A. — Multi-page interactive mockup
    Pages: Home · Projects · Simulator · Education ·
           Institutional · Register · Login · Dashboard
@@ -72,20 +420,22 @@ input,select,textarea{font-family:'Outfit',sans-serif;}
 .page{padding-top:66px;min-height:100vh;}
 
 /* ── HERO ── */
-.hero{min-height:calc(100vh - 66px);display:flex;align-items:center;padding:80px 52px;background:linear-gradient(135deg,#FFFBF4 0%,#F0F5FF 55%,#F7F9FC 100%);position:relative;overflow:hidden;}
-.hero-deco{position:absolute;top:0;right:0;width:50%;height:100%;background:radial-gradient(ellipse at 70% 40%,rgba(184,134,42,.08),transparent 60%),radial-gradient(ellipse at 90% 80%,rgba(37,99,235,.05),transparent 50%);pointer-events:none;}
-.hero-ring{position:absolute;border-radius:50%;border:1px solid rgba(184,134,42,.1);}
+.hero{min-height:calc(100vh - 66px);display:flex;align-items:center;padding:80px 52px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=80');background-size:cover;background-position:center;filter:brightness(.18);}
+.hero-bg-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(10,22,40,.97) 0%,rgba(10,22,40,.82) 45%,rgba(10,22,40,.35) 100%);}
+.hero-deco{position:absolute;top:0;right:0;width:50%;height:100%;background:radial-gradient(ellipse at 70% 40%,rgba(184,134,42,.12),transparent 60%);pointer-events:none;}
+.hero-ring{position:absolute;border-radius:50%;border:1px solid rgba(184,134,42,.15);}
 .hero-content{position:relative;max-width:640px;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--border);padding:6px 16px;border-radius:99px;margin-bottom:22px;font-size:12px;font-weight:600;color:var(--muted);box-shadow:var(--shadow-sm);}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:6px 16px;border-radius:99px;margin-bottom:22px;font-size:12px;font-weight:600;color:rgba(255,255,255,.8);backdrop-filter:blur(8px);}
 .live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-size:clamp(34px,4.5vw,58px);color:var(--ink);margin-bottom:16px;letter-spacing:-.5px;}
-.hero h1 em{color:var(--gold);}
-.hero-p{font-size:16px;color:var(--muted);margin-bottom:34px;max-width:490px;line-height:1.7;}
+.hero h1{font-size:clamp(34px,4.5vw,62px);color:#fff;margin-bottom:16px;letter-spacing:-.5px;text-shadow:0 2px 20px rgba(0,0,0,.3);}
+.hero h1 em{color:var(--gold-md);}
+.hero-p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:34px;max-width:490px;line-height:1.8;}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px;}
 .hero-stats{display:flex;gap:36px;flex-wrap:wrap;}
-.hs-val{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;}
-.hs-lbl{font-size:12px;color:var(--muted);margin-top:2px;}
+.hs-val{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;}
+.hs-lbl{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px;}
 .hero-cards-area{position:absolute;right:52px;top:50%;transform:translateY(-50%);width:360px;height:340px;}
 .fcard{position:absolute;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow-md);}
 .fcard.main{width:270px;top:10px;right:20px;}
@@ -103,6 +453,70 @@ input,select,textarea{font-family:'Outfit',sans-serif;}
 .trust-lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-right:6px;}
 .tbadge{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-size:12px;font-weight:500;color:var(--ink2);}
 
+
+/* ── PROJECT CARD IMAGE ── */
+.pcard-img-wrap{position:relative;overflow:hidden;height:160px;}
+.pcard-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.pcard:hover .pcard-img-wrap img{transform:scale(1.05);}
+.pcard-img-badge{position:absolute;top:12px;right:12px;}
+
+/* ── ASSET SHOWCASE ── */
+/* ── ASSET SHOWCASE v2 ── */
+.showcase-wrap{margin-top:48px;}
+.showcase-hero{position:relative;border-radius:20px 20px 0 0;overflow:hidden;height:460px;cursor:pointer;}
+.showcase-hero img{width:100%;height:100%;object-fit:cover;object-position:center 30%;transition:transform .6s ease;}
+.showcase-hero:hover img{transform:scale(1.03);}
+.showcase-hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,22,40,.82) 0%,rgba(10,22,40,.3) 60%,rgba(10,22,40,.55) 100%);}
+.showcase-hero-content{position:absolute;top:50%;transform:translateY(-50%);left:52px;max-width:480px;}
+.showcase-hero-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-md);margin-bottom:12px;}
+.showcase-hero-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;}
+.showcase-hero-desc{font-size:15px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:22px;max-width:380px;}
+.showcase-hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);padding:8px 18px;border-radius:99px;font-size:13px;font-weight:600;color:#fff;}
+.showcase-hero-tir{color:var(--gold-md);font-size:16px;font-weight:800;font-family:'Playfair Display',serif;}
+.showcase-hero-cta{position:absolute;bottom:28px;right:28px;display:flex;gap:10px;align-items:center;}
+.showcase-sub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.showcase-sub-panel{position:relative;height:240px;cursor:pointer;overflow:hidden;}
+.showcase-sub-panel:first-child{border-radius:0 0 0 20px;}
+.showcase-sub-panel:last-child{border-radius:0 0 20px 0;}
+.showcase-sub-panel img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.showcase-sub-panel:hover img{transform:scale(1.07);}
+.showcase-sub-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,rgba(10,22,40,.92) 100%);}
+.showcase-sub-panel:hover .showcase-sub-overlay{background:linear-gradient(180deg,rgba(10,22,40,.1) 0%,rgba(10,22,40,.88) 100%);}
+.showcase-sub-content{position:absolute;bottom:0;left:0;right:0;padding:18px 20px;}
+.showcase-sub-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:4px;}
+.showcase-sub-desc{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:8px;}
+.showcase-sub-row{display:flex;align-items:center;justify-content:space-between;}
+.showcase-sub-tir{font-size:13px;font-weight:800;color:var(--gold-md);font-family:'Playfair Display',serif;}
+.showcase-sub-arrow{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;transition:all .2s;}
+.showcase-sub-panel:hover .showcase-sub-arrow{background:var(--gold);border-color:var(--gold);}
+@media(max-width:900px){
+  .showcase-hero{height:320px;border-radius:16px 16px 0 0;}
+  .showcase-hero-content{left:24px;right:24px;max-width:100%;}
+  .showcase-hero-title{font-size:24px;}
+  .showcase-hero-desc{display:none;}
+  .showcase-sub-grid{grid-template-columns:1fr;}
+  .showcase-sub-panel{height:180px;}
+  .showcase-sub-panel:first-child{border-radius:0;}
+  .showcase-sub-panel:last-child{border-radius:0 0 16px 16px;}
+}
+
+/* ── PROFILE PHOTO ── */
+.avatar-upload{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:24px;}
+.avatar-circle{width:96px;height:96px;border-radius:50%;overflow:hidden;border:3px solid var(--gold);box-shadow:0 0 0 4px var(--gold-lt);cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;background:var(--gold-lt);}
+.avatar-circle img{width:100%;height:100%;object-fit:cover;}
+.avatar-initials{font-family:"Playfair Display",serif;font-size:32px;font-weight:700;color:var(--gold);}
+.avatar-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
+.avatar-circle:hover .avatar-overlay{opacity:1;}
+.avatar-overlay span{color:#fff;font-size:22px;}
+.avatar-upload-hint{font-size:12px;color:var(--muted);text-align:center;}
+.nav-avatar{width:32px;height:32px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;background:var(--gold-lt);}
+.nav-avatar img{width:100%;height:100%;object-fit:cover;}
+.nav-avatar-txt{font-size:11px;font-weight:700;color:var(--gold);}
+.sb-user-info{padding:12px 10px 16px;border-bottom:1px solid var(--border);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.sb-user-avatar{width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid var(--gold-lt);display:flex;align-items:center;justify-content:center;background:var(--gold-lt);flex-shrink:0;}
+.sb-user-avatar img{width:100%;height:100%;object-fit:cover;}
+.sb-user-name{font-size:13px;font-weight:600;}
+.sb-user-email{font-size:11px;color:var(--muted);}
 /* ── METRICS BAND ── */
 .metrics-band{background:linear-gradient(135deg,#0A1628,#1A3050);padding:60px 52px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:32px;}
 .mb-val{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:#F5E9C8;}
@@ -417,13 +831,13 @@ const BarChart = ({ bars }) => {
 const Toast = ({ msg }) => msg ? <div className="toast">✅ {msg}</div> : null;
 
 /* ─── NAVBAR ─── */
-function Nav({ page, setPage, loggedIn, setLoggedIn }) {
+function Nav({ page, setPage, loggedIn, setLoggedIn, lang, setLang, t }) {
   const links = [
-    { id: "home", label: "Inicio" },
-    { id: "projects", label: "Proyectos" },
-    { id: "simulator", label: "Simulador" },
-    { id: "education", label: "Educación" },
-    { id: "institutional", label: "Institucional" },
+    { id: "home", label: t("nav_home") },
+    { id: "projects", label: t("nav_projects") },
+    { id: "simulator", label: t("nav_simulator") },
+    { id: "education", label: t("nav_education") },
+    { id: "institutional", label: t("nav_institutional") },
   ];
   return (
     <nav className="nav">
@@ -434,7 +848,18 @@ function Nav({ page, setPage, loggedIn, setLoggedIn }) {
         ))}
       </div>
       <div className="nav-r">
-        <button className="pill-btn">ES / EN</button>
+        <div style={{position:"relative",display:"inline-block"}}>
+          <select value={lang} onChange={e=>setLang(e.target.value)}
+            style={{appearance:"none",background:"transparent",border:"1.5px solid var(--border)",
+              borderRadius:"99px",padding:"6px 28px 6px 12px",fontSize:12,fontWeight:600,
+              color:"var(--muted)",cursor:"pointer",fontFamily:"'Outfit',sans-serif",
+              backgroundRepeat:"no-repeat",backgroundPosition:"right 8px center",outline:"none"}}>
+            <option value="es">🇦🇷 ES</option>
+            <option value="en">🇺🇸 EN</option>
+            <option value="fr">🇫🇷 FR</option>
+            <option value="pt">🇧🇷 PT</option>
+          </select>
+        </div>
         {loggedIn
           ? <>
               <button className={`btn btn-ghost btn-sm ${page === "dashboard" ? "" : ""}`} onClick={() => setPage("dashboard")}>Mi cuenta</button>
@@ -482,24 +907,25 @@ function Footer({ setPage }) {
 /* ══════════════════════════════
    PAGE: HOME
 ══════════════════════════════ */
-function HomePage({ setPage, fills }) {
+function HomePage({ setPage, fills, t, lang }) {
   const [faq, setFaq] = useState(null);
   return (
     <div className="page">
       {/* HERO */}
       <section className="hero">
+        <div className="hero-bg" />
+        <div className="hero-bg-overlay" />
         <div className="hero-deco" />
-        {[500,360,220].map((s,i) => <div key={i} className="hero-ring" style={{width:s,height:s,top:`calc(50% - ${s/2}px)`,right:`calc(52px - ${s/2}px + 180px)`,opacity:.6-i*.15}} />)}
         <div className="hero-content">
-          <div className="hero-badge"><span className="live-dot" />Plataforma de activos tokenizados · Est. 2024</div>
-          <h1>Invierte en activos <em>reales</em> desde cualquier parte del mundo.</h1>
-          <p className="hero-p">Transformamos propiedades, flotas vehiculares y parques solares en tokens accesibles. Rendimientos reales, respaldo legal, trazabilidad blockchain.</p>
+          <div className="hero-badge"><span className="live-dot" />{t("hero_badge")}</div>
+          <h1>{t("hero_h1a")} <em>{t("hero_h1b")}</em> {t("hero_h1c")}</h1>
+          <p className="hero-p">{t("hero_p")}</p>
           <div className="hero-cta">
-            <button className="btn btn-gold btn-lg" onClick={() => setPage("projects")}>Ver Oportunidades →</button>
-            <button className="btn btn-outline btn-lg" onClick={() => setPage("simulator")}>Simular mi inversión</button>
+            <button className="btn btn-gold btn-lg" onClick={() => setPage("projects")}>{t("hero_cta1")}</button>
+            <button className="btn btn-outline btn-lg" style={{borderColor:"rgba(255,255,255,.4)",color:"#fff"}} onClick={() => setPage("simulator")}>{t("hero_cta2")}</button>
           </div>
           <div className="hero-stats">
-            {[["$12.4M","Capital gestionado"],["847","Inversores activos"],["15%","TIR promedio anual"]].map(([v,l],i) => (
+            {[["$12.4M",t("hero_s1")],["847",t("hero_s2")],["15%",t("hero_s3")]].map(([v,l],i) => (
               <div key={i}><div className="hs-val">{v}</div><div className="hs-lbl">{l}</div></div>
             ))}
           </div>
@@ -513,7 +939,7 @@ function HomePage({ setPage, fills }) {
 
       {/* TRUST */}
       <div className="trust">
-        <span className="trust-lbl">Respaldo institucional</span>
+        <span className="trust-lbl">{t("trust_label")}</span>
         {[["⬡","Red Polygon"],["🛡️","KYC Verificado"],["⚖️","Fideicomiso legal"],["🔍","Auditoría independiente"],["💱","USDT / USDC"],["🌐","SWIFT / ACH"]].map(([ico,lbl],i) => (
           <div key={i} className="tbadge"><span>{ico}</span>{lbl}</div>
         ))}
@@ -529,9 +955,9 @@ function HomePage({ setPage, fills }) {
       {/* HOW */}
       <section className="sec sec-alt">
         <div className="sec-hdr" style={{textAlign:"center"}}>
-          <div className="tag">Proceso simple</div>
-          <h2 className="section-title">Tu camino en 3 pasos</h2>
-          <p className="section-sub" style={{margin:"0 auto"}}>Sin burocracia ni fronteras. Elegí, invertí, cobrá.</p>
+          <div className="tag">{t("how_tag")}</div>
+          <h2 className="section-title">{t("how_title")}</h2>
+          <p className="section-sub" style={{margin:"0 auto"}}>{t("how_sub")}</p>
         </div>
         <div className="steps-grid"><div className="steps-line" />
           {[
@@ -543,15 +969,117 @@ function HomePage({ setPage, fills }) {
           ))}
         </div>
         <div style={{textAlign:"center",marginTop:40}}>
-          <button className="btn btn-gold btn-lg" onClick={() => setPage("register")}>Comenzar ahora →</button>
+          <button className="btn btn-gold btn-lg" onClick={() => setPage("register")}>{t("how_cta")}</button>
+        </div>
+      </section>
+
+      {/* ASSET SHOWCASE v2 */}
+      <section className="sec sec-alt">
+        <div className="sec-hdr" style={{textAlign:"center"}}>
+          <div className="tag">{t("showcase_tag")}</div>
+          <h2 className="section-title">{t("showcase_title")}</h2>
+          <p className="section-sub" style={{margin:"0 auto"}}>{t("showcase_sub")}</p>
+        </div>
+        <div className="showcase-wrap">
+
+          {/* HERO PANEL — Real Estate (bigger, most impactful) */}
+          <div className="showcase-hero" onClick={() => setPage("project-re")}>
+            <img
+              src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&q=90"
+              alt="Real Estate"
+              loading="lazy"
+            />
+            <div className="showcase-hero-overlay" />
+            <div className="showcase-hero-content">
+              <div className="showcase-hero-tag">🏢 Real Estate Alquiler</div>
+              <h2 className="showcase-hero-title">Propiedades premium que trabajan para vos</h2>
+              <p className="showcase-hero-desc">Participá en un portfolio de inmuebles residenciales y comerciales de primer nivel. Rentas actualizadas, administración profesional, token verificable en blockchain.</p>
+              <div className="showcase-hero-badge">
+                <span>TIR estimada</span>
+                <span className="showcase-hero-tir">18% anual</span>
+                <span style={{color:"rgba(255,255,255,.4)"}}>·</span>
+                <span>Riesgo Comercial</span>
+              </div>
+            </div>
+            <div className="showcase-hero-cta">
+              <button className="btn btn-gold btn-sm" onClick={e=>{e.stopPropagation();setPage("project-re");}}>
+                Ver proyecto →
+              </button>
+              <button className="btn btn-sm" style={{background:"rgba(255,255,255,.12)",color:"#fff",border:"1px solid rgba(255,255,255,.25)",backdropFilter:"blur(6px)"}} onClick={e=>{e.stopPropagation();setPage("simulator");}}>
+                Simular inversión
+              </button>
+            </div>
+          </div>
+
+          {/* SUB GRID — 3 panels */}
+          <div className="showcase-sub-grid">
+
+            {/* Flota de Autos */}
+            <div className="showcase-sub-panel" onClick={() => setPage("project-autos")}>
+              <img
+                src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=88"
+                alt="Flota de Autos"
+                loading="lazy"
+                style={{objectPosition:"center 60%"}}
+              />
+              <div className="showcase-sub-overlay" />
+              <div className="showcase-sub-content">
+                <div className="showcase-sub-title">🚗 Flota de Autos</div>
+                <div className="showcase-sub-desc">Retornos mensuales por leasing corporativo</div>
+                <div className="showcase-sub-row">
+                  <span className="showcase-sub-tir">15% TIR anual</span>
+                  <div className="showcase-sub-arrow">→</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Energía Solar */}
+            <div className="showcase-sub-panel" onClick={() => setPage("project-solar")}>
+              <img
+                src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=900&q=88"
+                alt="Energía Solar"
+                loading="lazy"
+                style={{objectPosition:"center 40%"}}
+              />
+              <div className="showcase-sub-overlay" />
+              <div className="showcase-sub-content">
+                <div className="showcase-sub-title">☀️ Energía Solar</div>
+                <div className="showcase-sub-desc">Parques fotovoltaicos con impacto ambiental certificado</div>
+                <div className="showcase-sub-row">
+                  <span className="showcase-sub-tir">12% TIR anual</span>
+                  <div className="showcase-sub-arrow">→</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Infraestructura Energética */}
+            <div className="showcase-sub-panel" onClick={() => setPage("project-infra")}>
+              <img
+                src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=900&q=88"
+                alt="Infraestructura Energética"
+                loading="lazy"
+                style={{objectPosition:"center 50%"}}
+              />
+              <div className="showcase-sub-overlay" />
+              <div className="showcase-sub-content">
+                <div className="showcase-sub-title">⚡ Infraestructura Energética</div>
+                <div className="showcase-sub-desc">Contratos PPA de largo plazo con empresas ancla</div>
+                <div className="showcase-sub-row">
+                  <span className="showcase-sub-tir">14% TIR anual</span>
+                  <div className="showcase-sub-arrow">→</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* PROJECTS PREVIEW */}
       <section className="sec">
         <div className="sec-hdr sec-hdr-row">
-          <div><div className="tag">Portafolio</div><h2 className="section-title">Diversificá tu capital en activos reales</h2><p className="section-sub">Activos tangibles, rendimientos verificables, contratos en blockchain.</p></div>
-          <button className="btn btn-outline" onClick={() => setPage("projects")}>Ver todos →</button>
+          <div><div className="tag">{t("proj_tag")}</div><h2 className="section-title">{t("proj_title")}</h2><p className="section-sub">{t("proj_sub")}</p></div>
+          <button className="btn btn-outline" onClick={() => setPage("projects")}>{t("proj_seeall")}</button>
         </div>
         <div className="cards-grid">
           {PROJECTS.map((p,i) => (
@@ -576,28 +1104,35 @@ function HomePage({ setPage, fills }) {
 
       {/* TESTIMONIALS */}
       <section className="sec sec-alt">
-        <div className="sec-hdr" style={{textAlign:"center"}}><div className="tag">Comunidad</div><h2 className="section-title">Lo que dicen nuestros inversores</h2></div>
-        <div className="test-grid">
-          {[
-            {s:"★★★★★",t:"Llevo 8 meses en el fideicomiso de autos y los pagos mensuales son exactamente lo que estimó el simulador. La transparencia es increíble.",n:"Martín R.",l:"Buenos Aires, Argentina",a:"👨‍💼"},
-            {s:"★★★★★",t:"Como inversor europeo lo que más me convenció fue poder verificar mi contrato en blockchain. Una diferencia enorme respecto a otras plataformas.",n:"Klaus B.",l:"Múnich, Alemania",a:"👨‍💻"},
-            {s:"★★★★☆",t:"El KYC fue muy ágil. En menos de 20 minutos ya tenía la cuenta verificada e hice mi primera inversión con USDC desde Miami.",n:"Valentina C.",l:"Miami, EE.UU.",a:"👩‍💼"},
-          ].map((t,i) => (
-            <div key={i} className="tcard">
-              <div className="tcard-stars">{t.s}</div>
-              <p className="tcard-text">"{t.t}"</p>
-              <div style={{display:"flex",alignItems:"center",gap:10}}>
-                <div className="tcard-avatar">{t.a}</div>
-                <div><div className="tcard-name">{t.n}</div><div className="tcard-loc">{t.l}</div></div>
+        <div className="sec-hdr" style={{textAlign:"center"}}><div className="tag">{t("test_tag")}</div><h2 className="section-title">{t("test_title")}</h2></div>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:20,marginTop:44}}>
+          {TESTIMONIALS.map((t,i) => {
+            const txt = t["text_"+lang] || t.text_es;
+            return (
+              <div key={i} className="tcard" style={{position:"relative"}}>
+                <div style={{position:"absolute",top:20,right:20,fontSize:22,opacity:.15,fontFamily:"Georgia",lineHeight:1}}>"</div>
+                <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}>
+                  <div className="tcard-avatar" style={{width:46,height:46,fontSize:16,fontFamily:"'Playfair Display',serif",fontWeight:700,color:"var(--gold)",background:"var(--gold-lt)",border:"2px solid var(--gold-md)"}}>{t.avatar}</div>
+                  <div>
+                    <div className="tcard-name">{t.flag} {t.name}</div>
+                    <div className="tcard-loc">{t.role} · {t.location}</div>
+                  </div>
+                </div>
+                <div className="tcard-stars">{t.stars}</div>
+                <p className="tcard-text" style={{fontStyle:"normal",color:"var(--ink2)",lineHeight:1.75}}>"{txt}"</p>
+                <div style={{marginTop:14,paddingTop:12,borderTop:"1px solid var(--border)",display:"flex",justifyContent:"space-between",fontSize:12}}>
+                  <span style={{color:"var(--muted)"}}>{t.fund}</span>
+                  <span style={{fontWeight:700,color:"var(--green)"}}>{t.amount}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
       {/* FAQ */}
       <section className="sec">
-        <div className="sec-hdr" style={{textAlign:"center"}}><div className="tag">FAQ</div><h2 className="section-title">Todo lo que necesitás saber</h2></div>
+        <div className="sec-hdr" style={{textAlign:"center"}}><div className="tag">{t("faq_tag")}</div><h2 className="section-title">{t("faq_title")}</h2></div>
         <div className="faq-list">
           {FAQS.map((f,i) => (
             <div key={i} className="faq-item">
@@ -610,10 +1145,10 @@ function HomePage({ setPage, fills }) {
 
       {/* CTA */}
       <div className="cta-band">
-        <div><h2>¿Listo para hacer trabajar tu capital en activos reales?</h2><p>Creá tu cuenta gratis. Sin mínimos elevados, sin burocracia, con total trazabilidad.</p></div>
+        <div><h2>{t("cta_title")}</h2><p>{t("cta_sub")}</p></div>
         <div className="cta-btns">
-          <button className="btn btn-gold btn-lg" onClick={() => setPage("register")}>Crear Cuenta Gratis →</button>
-          <button className="btn btn-outline btn-lg" onClick={() => setPage("institutional")}>Hablar con un asesor</button>
+          <button className="btn btn-gold btn-lg" onClick={() => setPage("register")}>{t("cta_btn1")}</button>
+          <button className="btn btn-outline btn-lg" onClick={() => setPage("institutional")}>{t("cta_btn2")}</button>
         </div>
       </div>
 
@@ -757,7 +1292,7 @@ function ProjectDetailPage({ projectId, setPage, loggedIn, fills, showToast }) {
 /* ══════════════════════════════
    PAGE: SIMULATOR
 ══════════════════════════════ */
-function SimulatorPage({ setPage, loggedIn }) {
+function SimulatorPage({ setPage, loggedIn, t=k=>k }) {
   const [inv, setInv] = useState(5000);
   const [fund, setFund] = useState(0);
   const sf = PROJECTS[fund];
@@ -767,9 +1302,9 @@ function SimulatorPage({ setPage, loggedIn }) {
     <div className="page">
       <div className="inner-hero">
         <div className="breadcrumb"><span onClick={() => setPage("home")}>Inicio</span>›<span>Simulador</span></div>
-        <div className="tag">Herramienta interactiva</div>
-        <h1>Simulador de inversión</h1>
-        <p>Calculá el retorno estimado de tu inversión según el fideicomiso y el monto que elijas. Sin compromiso.</p>
+        <div className="tag">{t("sim_tag")}</div>
+        <h1>{t("sim_title")}</h1>
+        <p>{t("sim_sub")}</p>
       </div>
       <section className="sec">
         <div className="sim-grid">
@@ -791,9 +1326,9 @@ function SimulatorPage({ setPage, loggedIn }) {
 
           <div>
             <div className="result-box" style={{marginBottom:20}}>
-              <div className="res-lbl">Retorno proyectado anual</div>
+              <div className="res-lbl">{t("sim_annual")}</div>
               <div className="res-big">+${fmt(annual)}</div>
-              <div className="res-period">≈ USD {fmt(annual/12)} por mes</div>
+              <div className="res-period">≈ USD {fmt(annual/12)} {t("sim_permonth")}</div>
               <div className="divider" style={{margin:"16px 0"}} />
               <div className="res-row"><span>Capital inicial</span><span>USD {inv.toLocaleString()}</span></div>
               <div className="res-row"><span>TIR estimada</span><span style={{color:"var(--green)"}}>{sf.tir}% anual</span></div>
@@ -988,9 +1523,9 @@ function InstitutionalPage({ setPage }) {
 /* ══════════════════════════════
    PAGE: REGISTER
 ══════════════════════════════ */
-function RegisterPage({ setPage, setLoggedIn, showToast }) {
+function RegisterPage({ setPage, setLoggedIn, showToast, t=k=>k }) {
   const [step, setStep] = useState(1);
-  const [form, setForm] = useState({ nombre: "", apellido: "", email: "", pais: "", pass: "", pass2: "", terms: false });
+  const [form, setForm] = useState({ nombre: "", apellido: "", email: "", pais: "", pass: "", pass2: "", terms: false, photoUrl: null });
   const upd = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   const next = () => {
@@ -1011,11 +1546,25 @@ function RegisterPage({ setPage, setLoggedIn, showToast }) {
           {[1,2,3].map(i => <div key={i} className={`sp-dot ${i<step?"done":i===step?"active":""}`} />)}
         </div>
         {step===1 && <>
-          <h2>Crear cuenta</h2>
-          <p>Paso 1 de 3 · Tus datos personales</p>
+          <h2>{t("reg_title")}</h2>
+          <p>{t("reg_step1")}</p>
+          <div className="avatar-upload">
+            <div className="avatar-circle" onClick={() => document.getElementById('avatar-input').click()}>
+              {form.photoUrl
+                ? <img src={form.photoUrl} alt="perfil" />
+                : <span className="avatar-initials">{(form.nombre?.[0]||"?").toUpperCase()}{(form.apellido?.[0]||"").toUpperCase()}</span>
+              }
+              <div className="avatar-overlay"><span>📷</span></div>
+            </div>
+            <input id="avatar-input" type="file" accept="image/*" style={{display:"none"}} onChange={e=>{
+              const file = e.target.files[0];
+              if(file){ const url = URL.createObjectURL(file); upd("photoUrl", url); }
+            }} />
+            <div className="avatar-upload-hint">Subí tu foto de perfil (opcional)<br/>Hacé click en el círculo para elegir una imagen</div>
+          </div>
           <div className="form-row">
-            <div className="form-group"><label>Nombre</label><input className="form-input" value={form.nombre} onChange={e=>upd("nombre",e.target.value)} placeholder="Juan" /></div>
-            <div className="form-group"><label>Apellido</label><input className="form-input" value={form.apellido} onChange={e=>upd("apellido",e.target.value)} placeholder="García" /></div>
+            <div className="form-group"><label>{t("reg_name")}</label><input className="form-input" value={form.nombre} onChange={e=>upd("nombre",e.target.value)} placeholder="Juan" /></div>
+            <div className="form-group"><label>{t("reg_lastname")}</label><input className="form-input" value={form.apellido} onChange={e=>upd("apellido",e.target.value)} placeholder="García" /></div>
           </div>
           <div className="form-group"><label>Email</label><input className="form-input" type="email" value={form.email} onChange={e=>upd("email",e.target.value)} placeholder="tu@email.com" /></div>
           <div className="form-group"><label>País de residencia</label>
@@ -1062,7 +1611,7 @@ function RegisterPage({ setPage, setLoggedIn, showToast }) {
 /* ══════════════════════════════
    PAGE: LOGIN
 ══════════════════════════════ */
-function LoginPage({ setPage, setLoggedIn, showToast }) {
+function LoginPage({ setPage, setLoggedIn, showToast, t=k=>k }) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
@@ -1079,13 +1628,13 @@ function LoginPage({ setPage, setLoggedIn, showToast }) {
         <div style={{textAlign:"center",marginBottom:20}}>
           <div className="logo" style={{cursor:"default",fontSize:24,marginBottom:4}}>Nex<em style={{color:"var(--gold)"}}>xum</em></div>
         </div>
-        <h2>Iniciá sesión</h2>
-        <p>Accedé a tu panel de inversiones</p>
+        <h2>{t("log_title")}</h2>
+        <p>{t("log_sub")}</p>
         <div className="form-group"><label>Email</label><input className="form-input" type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="tu@email.com" /></div>
         <div className="form-group"><label>Contraseña</label><input className="form-input" type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="Tu contraseña" /></div>
-        <div style={{textAlign:"right",marginBottom:20}}><span className="auth-link" style={{fontSize:13}}>¿Olvidaste tu contraseña?</span></div>
-        <button className="btn btn-gold btn-block btn-lg" onClick={login}>Ingresar →</button>
-        <div className="auth-divider">¿No tenés cuenta? <span className="auth-link" onClick={() => setPage("register")}>Registrate gratis</span></div>
+        <div style={{textAlign:"right",marginBottom:20}}><span className="auth-link" style={{fontSize:13}}>{t("log_forgot")}</span></div>
+        <button className="btn btn-gold btn-block btn-lg" onClick={login}>{t("log_enter")}</button>
+        <div className="auth-divider">{t("log_no_account")} <span className="auth-link" onClick={() => setPage("register")}>{t("log_signup")}</span></div>
         <div style={{background:"var(--bg)",borderRadius:10,padding:12,fontSize:12,color:"var(--muted)",textAlign:"center",border:"1px solid var(--border)"}}>
           🔒 Conexión segura SSL · Datos cifrados con AES-256
         </div>
@@ -1182,6 +1731,15 @@ function DashLayout({ children, dashPage, setDashPage, setPage, setLoggedIn }) {
   return (
     <div className="dash-layout">
       <div className="sidebar">
+        <div className="sb-user-info">
+          <div className="sb-user-avatar">
+            <span style={{fontFamily:"'Playfair Display',serif",fontSize:14,fontWeight:700,color:"var(--gold)"}}>CR</span>
+          </div>
+          <div>
+            <div className="sb-user-name">Carlos Rodríguez</div>
+            <div className="sb-user-email">carlos@email.com</div>
+          </div>
+        </div>
         <div className="sb-sec">Principal</div>
         {[["overview","📊","Dashboard"],["portfolio","💼","Mi Portafolio"],["transactions","🔄","Transacciones",3]].map(([id,ico,lbl,badge]) => (
           <button key={id} className={`sb-item ${dashPage===id?"on":""}`} onClick={() => setDashPage(id)}>
@@ -1361,6 +1919,30 @@ function DashProfile({ showToast }) {
   return (
     <>
       <div className="dash-topbar"><div className="dash-hello"><h2>Perfil y KYC</h2><p>Administrá tu cuenta e información personal</p></div></div>
+      <div style={{background:"var(--white)",border:"1px solid var(--border)",borderRadius:14,padding:28,marginBottom:20,boxShadow:"var(--shadow-sm)",display:"flex",alignItems:"center",gap:28,flexWrap:"wrap"}}>
+        <div className="avatar-upload" style={{margin:0}}>
+          <div className="avatar-circle" style={{width:80,height:80}} onClick={() => document.getElementById('profile-photo-input').click()}>
+            <span className="avatar-initials" style={{fontSize:26}}>CR</span>
+            <div className="avatar-overlay"><span>📷</span></div>
+          </div>
+          <input id="profile-photo-input" type="file" accept="image/*" style={{display:"none"}} onChange={e => {
+            const file = e.target.files[0];
+            if(file){ showToast("Foto de perfil actualizada"); }
+          }} />
+        </div>
+        <div>
+          <h3 style={{marginBottom:4}}>Carlos Rodríguez</h3>
+          <p style={{fontSize:13,color:"var(--muted)",marginBottom:12}}>carlos.rodriguez@email.com · Inversor desde Enero 2025</p>
+          <div style={{display:"flex",gap:10}}>
+            <span className="chip chip-green">KYC Verificado</span>
+            <span className="chip chip-gold">Nivel Premium</span>
+            <span className="chip chip-blue">18 países elegibles</span>
+          </div>
+        </div>
+        <div style={{marginLeft:"auto"}}>
+          <button className="btn btn-outline btn-sm" onClick={() => document.getElementById('profile-photo-input').click()}>📷 Cambiar foto</button>
+        </div>
+      </div>
       <div className="profile-grid">
         <div className="profile-card">
           <h4>Información personal</h4>
@@ -1428,6 +2010,10 @@ export default function App() {
   const [page, setPage] = useState("home");
   const [loggedIn, setLoggedIn] = useState(false);
   const [fills, setFills] = useState([0, 0, 0, 0]);
+  const [lang, setLang] = useState('es');
+  const t = (k) => (T[lang] && T[lang][k]) ? T[lang][k] : (T['es'][k] || k);
+  const [profilePhoto, setProfilePhoto] = useState(null);
+  const [profileName, setProfileName] = useState("Carlos Rodríguez");
   const [toast, setToast] = useState(null);
   const toastTimer = useRef(null);
 
@@ -1446,13 +2032,13 @@ export default function App() {
   const renderPage = () => {
     if (projectId) return <ProjectDetailPage projectId={projectId} setPage={navigate} loggedIn={loggedIn} fills={fills} showToast={showToast} />;
     switch (page) {
-      case "home": return <HomePage setPage={navigate} fills={fills} />;
+      case "home": return <HomePage setPage={navigate} fills={fills} t={t} lang={lang} />;
       case "projects": return <ProjectsPage setPage={navigate} fills={fills} />;
-      case "simulator": return <SimulatorPage setPage={navigate} loggedIn={loggedIn} />;
+      case "simulator": return <SimulatorPage setPage={navigate} loggedIn={loggedIn} t={t} />;
       case "education": return <EducationPage setPage={navigate} />;
       case "institutional": return <InstitutionalPage setPage={navigate} />;
-      case "register": return <RegisterPage setPage={navigate} setLoggedIn={setLoggedIn} showToast={showToast} />;
-      case "login": return <LoginPage setPage={navigate} setLoggedIn={setLoggedIn} showToast={showToast} />;
+      case "register": return <RegisterPage setPage={navigate} setLoggedIn={setLoggedIn} showToast={showToast} t={t} />;
+      case "login": return <LoginPage setPage={navigate} setLoggedIn={setLoggedIn} showToast={showToast} t={t} />;
       case "kyc": return <KYCPage setPage={navigate} showToast={showToast} />;
       case "dashboard": return <DashboardPage setPage={navigate} setLoggedIn={setLoggedIn} showToast={showToast} />;
       default: return <HomePage setPage={navigate} fills={fills} />;
@@ -1464,7 +2050,7 @@ export default function App() {
   return (
     <>
       <style>{CSS}</style>
-      {showNav && <Nav page={page} setPage={navigate} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+      {showNav && <Nav page={page} setPage={navigate} loggedIn={loggedIn} setLoggedIn={setLoggedIn} lang={lang} setLang={setLang} t={t} />}
       {renderPage()}
       <Toast msg={toast} />
     </>
